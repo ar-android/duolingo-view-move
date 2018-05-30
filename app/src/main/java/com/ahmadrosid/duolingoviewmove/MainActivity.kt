@@ -38,16 +38,18 @@ class MainActivity : AppCompatActivity(), RemoveAnswerListener {
 
         questionKey.forEach {
             val key = TextView(answerBox.context)
-            key.setBackgroundColor(Color.WHITE)
-            key.text = it
-            key.textSize = 18F
-            key.setPadding(40, 20, 40, 20)
-            answerBox.addView(key)
-            val margin = key.layoutParams as FlexboxLayout.LayoutParams
-            margin.setMargins(30, 30, 30, 30)
-            key.layoutParams = margin
-            key.setOnClickListener {
-                moveToAnswer(it)
+            with(key){
+                answerBox.addView(this)
+                setBackgroundColor(Color.WHITE)
+                text = it
+                textSize = 18F
+                setPadding(40, 20, 40, 20)
+                val margin = key.layoutParams as FlexboxLayout.LayoutParams
+                margin.setMargins(30, 30, 30, 30)
+                layoutParams = margin
+                setOnClickListener {
+                    moveToAnswer(it)
+                }
             }
         }
 
