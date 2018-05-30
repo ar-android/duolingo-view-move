@@ -20,7 +20,13 @@ class MainActivity : AppCompatActivity(), RemoveAnswerListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val questionKey = listOf(
+        actualAnswer = listOf(
+                "How",
+                "are",
+                "you"
+        )
+
+        val answerOption = listOf(
                 "morning",
                 "are",
                 "where",
@@ -30,13 +36,7 @@ class MainActivity : AppCompatActivity(), RemoveAnswerListener {
                 "you"
         )
 
-        actualAnswer = listOf(
-                "How",
-                "are",
-                "you"
-        )
-
-        questionKey.forEach {
+        answerOption.forEach {
             val key = TextView(answerBox.context)
             with(key){
                 answerBox.addView(this)
@@ -62,6 +62,8 @@ class MainActivity : AppCompatActivity(), RemoveAnswerListener {
 
             listAnswers.add(Answer(view, view.x, view.y, (view as TextView).text.toString(), this@MainActivity))
 
+            val topPosition = lineFirst.y - 120F
+
             var leftPosition = lineFirst.x
             if (listAnswers.size > 1) {
                 var allWidth = 0F
@@ -72,26 +74,24 @@ class MainActivity : AppCompatActivity(), RemoveAnswerListener {
                 leftPosition = lineFirst.x + allWidth
             }
 
+            val completeMove = object: Animator.AnimatorListener{
+                override fun onAnimationRepeat(p0: Animator?) {}
+
+                override fun onAnimationCancel(p0: Animator?) {}
+
+                override fun onAnimationStart(p0: Animator?) {}
+
+                override fun onAnimationEnd(p0: Animator?) {
+                    if(listAnswers.size == actualAnswer.size){
+                        showAnswer()
+                    }
+                }
+            }
+
             view.animate()
-                    .setListener(object: Animator.AnimatorListener{
-                        override fun onAnimationRepeat(p0: Animator?) {
-                        }
-
-                        override fun onAnimationCancel(p0: Animator?) {
-                        }
-
-                        override fun onAnimationStart(p0: Animator?) {
-                        }
-
-                        override fun onAnimationEnd(p0: Animator?) {
-                            if(listAnswers.size == actualAnswer.size){
-                                showAnswer()
-                            }
-                        }
-                    })
+                    .setListener(completeMove)
                     .x(leftPosition)
-                    .y(lineFirst.y - 120F)
-
+                    .y(topPosition)
         }
     }
 
