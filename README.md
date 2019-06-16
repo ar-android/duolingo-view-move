@@ -6,4 +6,4 @@ View move animation just like duolingo app.
 
 # Tutorial
 
-You can read the explanation on this [link](https://medium.com/@ocittwo/membuat-animasi-android-dengan-layout-flexbox-c53453148899)
+You can read the explanation on this [link](https://ahmadrosid.com/blog/membuat-animasi-android-dengan-layout-flexbox)
